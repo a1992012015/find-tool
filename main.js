@@ -9,10 +9,8 @@ let mainWindow;
 let pyProc = null;
 
 const createPyProc = () => {
-  // let script = path.join(__dirname, 'tool', 'api.py');
-  // pyProc = childProcess.spawn('python3', [script]);
-  // const script = __dirname + '../pydist/api/api';
   const script = path.join(__dirname, '../pydist/api/api');
+  // const script = path.join(__dirname, './pydist/api/api');
   pyProc = childProcess.execFile(script);
   if (pyProc != null) {
     console.log('child process success');
@@ -21,7 +19,10 @@ const createPyProc = () => {
 
 const createWindow = () => {
 //创建浏览器窗口,宽高自定义具体大小你开心就好
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 600
+  });
 
   // 加载应用-----  electron-quick-start中默认的加载入口
   mainWindow.loadURL(url.format({
@@ -29,7 +30,6 @@ const createWindow = () => {
     protocol: 'file:',
     slashes: true,
   }));
-  // 加载应用----适用于 react 项目
   // mainWindow.loadURL('http://localhost:3000/');
 
   // 打开开发者工具，默认不打开

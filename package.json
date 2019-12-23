@@ -12,9 +12,8 @@
     "electron-start": "electron .",
     "build-python-mac": "rm -rf ./pydist && pyinstaller api-mac.spec --distpath ./pydist",
     "build-python-windows": "rm -rf ./pydist && pyinstaller api-windows.spec --distpath ./pydist",
-    "builder-mac": "electron-builder build -m",
-    "builder-windows": "electron-builder build -w",
-    "package": "electron-packager ./ myapp --out ./builderOut --overwrite"
+    "builder-mac": "yarn build-python-mac && yarn build && electron-builder build -m",
+    "builder-windows": "yarn build-python-windows && yarn build && electron-builder build -w"
   },
   "build": {
     "appId": "com.find.tool",
