@@ -22,7 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/build
 /find-tool-darwin-x64
 /pydist
 /.idea
+/builderOut

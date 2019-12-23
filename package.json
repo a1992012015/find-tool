@@ -4,24 +4,41 @@
   "private": true,
   "main": "main.js",
   "homepage": ".",
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "antd": "^3.26.3",
-    "axios": "^0.19.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
-  },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "electron-start": "electron .",
-    "build-python-mac": "pyinstaller api-mac.spec --distpath ./pydist",
-    "pack-app": "electron-packager . --overwrite --ignore=py$"
+    "build-python-mac": "rm -rf ./pydist && pyinstaller api-mac.spec --distpath ./pydist",
+    "packager-mac": "yarn build-python-mac && yarn build && electron-packager . --overwrite --ignore=py$",
+    "builder-mac": "electron-builder build -m",
+    "builder-windows": "electron-builder build -w"
+  },
+  "build": {
+    "appId": "com.find.tool",
+    "extends": null,
+    "directories": {
+      "output": "builderOut"
+    },
+    "files": [
+      "!node_modules/*",
+      "!tool/*",
+      "!builderOut/*",
+      "!src/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,9 +56,18 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "antd": "^3.26.3",
+    "axios": "^0.19.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.3.0",
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",
     "electron": "^7.1.7",
+    "electron-builder": "^21.2.0",
     "electron-packager": "^14.1.1",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
