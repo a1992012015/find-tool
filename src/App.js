@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { Table } from 'antd';
 
 import { natures } from './configs/naturesConfig';
 import { getUuid } from './services/commonService';
-import MainForm from './component/mainForm';
-import FilterForm from './component/filterForm';
+import MainForm from './component/MainForm';
+import FindForm from './component/FindForm';
 
 import styles from './App.module.scss';
+import FilterForm from './component/FilterForm';
 
 class App extends Component {
   columns = [
@@ -37,7 +39,7 @@ class App extends Component {
     },
     {
       title: '性别',
-      dataIndex: 'gender',
+      dataIndex: 'proportion',
     },
     {
       title: '性格',
@@ -60,6 +62,7 @@ class App extends Component {
       test: '',
       isPagination: false,
       loading: false,
+      gender: 3,
     };
   }
 
@@ -67,9 +70,9 @@ class App extends Component {
     this.setState({ loading: true });
     axios.get(`http://localhost:8888/?${body}`).then((response) => {
       console.log('response', response.data);
-      const list = this.getMinList(response.data.filter, minResults);
+      let list = this.getMinList(response.data.filter, minResults);
+      list = this.changeGender(list, this.state.gender);
       this.list = list;
-      console.log('list', list);
       this.setState({
         test: response.data.result,
         list: list,
@@ -88,7 +91,7 @@ class App extends Component {
     });
   };
 
-  handleSubmit = (values) => {
+  getSearchList = (values) => {
     let body = '';
     Object.keys(values).forEach((key) => {
       if (typeof values[key] === 'string') {
@@ -148,13 +151,66 @@ class App extends Component {
     }
   };
 
-  render() {
+  filterSearchList = (values) => {
     const { list } = this.state;
+
+    this.setState({
+      list: this.changeGender(list, values),
+    });
+  };
+
+  changeGender = (list, value) => {
+    return list.map((item) => {
+      const { gender } = item;
+      const proportion = this.getGender(gender, value);
+      item.proportion = proportion === 0 ? '母' : proportion === 1 ? '公' : '无';
+      return item;
+    });
+  };
+
+  getGender = (gender, proportion) => {
+    const num = 254;
+    let genderNum = 0;
+    switch (proportion) {
+      case 0:
+        return 0;
+      case 1:
+        genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
+        genderNum = Math.ceil(Number(genderNum));
+        return genderNum <= 7 ? 0 : 1;
+      case 2:
+        genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
+        genderNum = Math.ceil(Number(genderNum));
+        return genderNum <= 3 ? 0 : 1;
+      case 4:
+        genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
+        genderNum = Math.ceil(Number(genderNum));
+        return genderNum <= 1 ? 0 : 1;
+      case 5:
+        genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
+        genderNum = Math.ceil(Number(genderNum));
+        return genderNum <= 1 ? 0 : 1;
+      case 6:
+        return 1;
+      case 7:
+        return 2;
+      case 3:
+      default:
+        genderNum = new BigNumber(gender).div(new BigNumber(num).div(2)).toFormat();
+        genderNum = Math.ceil(Number(genderNum));
+        return genderNum <= 1 ? 0 : 1;
+    }
+  };
+
+  render() {
+    const { list, gender } = this.state;
     return (
       <div className={styles.container}>
-        <MainForm handleSubmit={this.handleSubmit} download={this.download} list={list}/>
+        <MainForm handleSubmit={this.getSearchList} download={this.download} list={list}/>
 
-        <FilterForm handleSubmit={this.filterIVs}/>
+        <FindForm handleSubmit={this.filterIVs}/>
+
+        <FilterForm handleSubmit={this.filterSearchList} gender={gender}/>
 
         {this.renderIndividualValue(list)}
 

@@ -3,7 +3,7 @@ import { Button, Col, Form, InputNumber, Row } from 'antd';
 
 import styles from '../App.module.scss';
 
-class FilterForm extends Component {
+class FindForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { form, handleSubmit } = this.props;
@@ -19,11 +19,11 @@ class FilterForm extends Component {
     return (
       <Form className='ant-advanced-search-form' onSubmit={this.handleSubmit}>
         <h3>按照个体检索</h3>
-        <h6>这个检索只能从上面的查询条件查询得到的数据里面检索</h6>
+        <h6>此检索只能从基础查询条件查询得到的数据里面检索</h6>
 
         <Row gutter={24}>
           <Col span={8}>
-            <Form.Item key='hp' label='HP'>
+            <Form.Item key='hp' label='性别比例'>
               {form.getFieldDecorator('ivs[0]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
@@ -85,4 +85,4 @@ class FilterForm extends Component {
   }
 }
 
-export default Form.create()(FilterForm);
+export default Form.create()(FindForm);
