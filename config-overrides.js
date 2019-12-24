@@ -2,8 +2,6 @@ const {
   override,
   fixBabelImports,
   addLessLoader,
-  addBabelPlugin,
-  addWebpackAlias,
 } = require('customize-cra');
 
 const bgColor = '#f2f6ff';

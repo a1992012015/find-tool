@@ -9,11 +9,12 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "electron-start": "electron .",
+    "electron-start": "yarn start & cross-env ENVIRONMENT=development && electron .",
     "build-python-mac": "rm -rf ./pydist && pyinstaller api-mac.spec --distpath ./pydist",
     "build-python-windows": "rm -rf ./pydist && pyinstaller api-windows.spec --distpath ./pydist",
-    "builder-mac": "yarn build-python-mac && yarn build && electron-builder build -m",
-    "builder-windows": "yarn build-python-windows && yarn build && electron-builder build -w"
+    "builder": "cross-env ENVIRONMENT=production && electron-builder build",
+    "builder-mac": "yarn build-python-mac && yarn build && yarn builder",
+    "builder-windows": "yarn build-python-windows && yarn build && yarn builder"
   },
   "build": {
     "appId": "com.find.tool",
@@ -21,16 +22,16 @@
     "directories": {
       "output": "builderOut"
     },
-    "extraResources": [
-      "./build",
-      "./pydist"
-    ],
+    "asar": false,
     "files": [
-      "!node_modules/*",
-      "!tool/*",
-      "!builderOut/*",
-      "!src/*",
-      "!public/*"
+      "!node_modules",
+      "!tool",
+      "!builderOut",
+      "!src",
+      "!public",
+      "build",
+      "pydist",
+      "main.js"
     ],
     "mac": {
       "target": [
@@ -65,6 +66,7 @@
     "antd": "^3.26.3",
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.13.0",
+    "cross-env": "^6.0.3",
     "customize-cra": "^0.9.1",
     "electron": "^7.1.7",
     "electron-builder": "^21.2.0",

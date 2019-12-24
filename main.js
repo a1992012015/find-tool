@@ -9,8 +9,7 @@ let mainWindow;
 let pyProc = null;
 
 const createPyProc = () => {
-  const script = path.join(__dirname, '../pydist/api/api');
-  // const script = path.join(__dirname, './pydist/api/api');
+  const script = path.join(__dirname, 'pydist', 'api', 'api');
   pyProc = childProcess.execFile(script);
   if (pyProc != null) {
     console.log('child process success');
@@ -21,19 +20,22 @@ const createWindow = () => {
 //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 600
+    height: 600,
   });
 
   // 加载应用-----  electron-quick-start中默认的加载入口
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, '../build/index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
-  // mainWindow.loadURL('http://localhost:3000/');
+  if (process.env.ENVIRONMENT === 'development') {
+    mainWindow.loadURL('http://localhost:3000/');
+  } else {
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, './build/index.html'),
+      protocol: 'file:',
+      slashes: true,
+    }));
+    // 打开开发者工具，默认不打开
+    // mainWindow.webContents.openDevTools();
+  }
 
-  // 打开开发者工具，默认不打开
-  // mainWindow.webContents.openDevTools();
   createPyProc();
 
   // 关闭window时触发下列事件.
