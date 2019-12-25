@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BigNumber from 'bignumber.js';
 import axios from 'axios';
+import isElectron from 'is-electron';
 import { Table } from 'antd';
 
 import { natures } from './configs/naturesConfig';
@@ -64,6 +65,28 @@ class App extends Component {
       loading: false,
       gender: 3,
     };
+  }
+
+  componentDidMount() {
+    if (isElectron()) {
+      window.ipcRenderer.on('message', (event, text) => {
+        console.log('event', event);
+        console.log('arguments', arguments);
+        console.log('arguments', text);
+        // this.tips = text;
+      });
+      //注意：“downloadProgress”事件可能存在无法触发的问题，只需要限制一下下载网速就好了
+      window.ipcRenderer.on('downloadProgress', (event, progressObj) => {
+        console.log('progressObj', progressObj);
+        console.log('event', event);
+        // this.downloadPercent = progressObj.percent || 0;
+      });
+      window.ipcRenderer.on('isUpdateNow', () => {
+        console.log('isUpdateNow');
+        window.ipcRenderer.send('isUpdateNow');
+      });
+    }
+
   }
 
   getFilterList = (body, minResults) => {

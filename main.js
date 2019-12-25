@@ -4,6 +4,9 @@ const path = require('path');
 const url = require('url');
 const childProcess = require('child_process');
 
+const log = require('electron-log');
+const { autoUpdater } = require('electron-updater');
+
 // 保持window对象的全局引用,避免JavaScript对象被垃圾回收时,窗口被自动关闭.
 let mainWindow;
 let pyProc = null;
@@ -17,23 +20,32 @@ const createPyProc = () => {
 };
 
 const createWindow = () => {
+  let width = 1000;
+  if (process.env.ENVIRONMENT === 'development') {
+    width = 1550;
+  }
 //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
-    width: 1000,
+    width: width,
     height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: __dirname + '/preload.js',
+    },
   });
 
   // 加载应用-----  electron-quick-start中默认的加载入口
   if (process.env.ENVIRONMENT === 'development') {
     mainWindow.loadURL('http://localhost:3000/');
+    // 打开开发者工具，默认不打开
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, './build/index.html'),
       protocol: 'file:',
       slashes: true,
     }));
-    // 打开开发者工具，默认不打开
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   }
 
   createPyProc();
@@ -62,5 +74,35 @@ app.on('activate', function() {
   }
 });
 
+function sendStatusToWindow(text) {
+  log.info(text);
+  mainWindow.webContents.send('message', text);
+}
+
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('Checking for update...');
+});
+autoUpdater.on('update-available', (info) => {
+  sendStatusToWindow('Update available.' + info);
+});
+autoUpdater.on('update-not-available', (info) => {
+  sendStatusToWindow('Update not available.' + info);
+});
+autoUpdater.on('error', (err) => {
+  sendStatusToWindow('Error in auto-updater. ' + err);
+});
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + '/' + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+});
+autoUpdater.on('update-downloaded', (info) => {
+  sendStatusToWindow('Update downloaded' + info);
+});
+
 // 你可以在这个脚本中续写或者使用require引入独立的js文件.
 
+app.on('ready', function() {
+  autoUpdater.checkForUpdatesAndNotify();
+});

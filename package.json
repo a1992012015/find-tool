@@ -9,7 +9,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "electron-start": "yarn start & cross-env ENVIRONMENT=development electron .",
+    "electron-start": "cross-env ENVIRONMENT=development electron .",
     "build-python-mac": "rm -rf ./pydist && pyinstaller api-mac.spec --distpath ./pydist",
     "build-python-windows": "rm -rf ./pydist && pyinstaller api-windows.spec --distpath ./pydist",
     "builder": "cross-env ENVIRONMENT=production electron-builder build",
@@ -17,32 +17,25 @@
     "builder-windows": "yarn build-python-windows && yarn build && yarn builder"
   },
   "build": {
-    "appId": "com.find.tool",
+    "appId": "com.github.findtool",
+    "productName": "find tool",
+    "copyright": "Copyright 2020 by Garnet",
     "extends": null,
     "directories": {
       "output": "builderOut"
     },
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ],
     "asar": false,
     "files": [
-      "!node_modules",
-      "!tool",
-      "!builderOut",
-      "!src",
-      "!public",
       "build",
       "pydist",
-      "main.js"
-    ],
-    "mac": {
-      "target": [
-        "zip"
-      ]
-    },
-    "win": {
-      "target": [
-        "zip"
-      ]
-    }
+      "main.js",
+      "preload.js"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -71,6 +64,7 @@
     "customize-cra": "^0.9.1",
     "electron": "^7.1.7",
     "electron-builder": "^21.2.0",
+    "is-electron": "^2.2.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "node-sass": "^4.13.0",
@@ -78,5 +72,9 @@
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0"
+  },
+  "dependencies": {
+    "electron-log": "^4.0.1",
+    "electron-updater": "^4.2.0"
   }
 }
