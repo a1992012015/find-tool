@@ -79,14 +79,21 @@ class App extends Component {
       window.ipcRenderer.on('downloadProgress', (event, progressObj) => {
         console.log('progressObj', progressObj);
         console.log('event', event);
-        // this.downloadPercent = progressObj.percent || 0;
+        this.setState({
+          downloadPercent: progressObj.percent || 0,
+        });
       });
       window.ipcRenderer.on('isUpdateNow', () => {
         console.log('isUpdateNow');
         window.ipcRenderer.send('isUpdateNow');
       });
     }
+  }
 
+  componentWillUnmount() {
+    if (isElectron()) {
+      window.ipcRenderer.removeAllListeners();
+    }
   }
 
   getFilterList = (body, minResults) => {
@@ -226,9 +233,10 @@ class App extends Component {
   };
 
   render() {
-    const { list, gender } = this.state;
+    const { list, gender, downloadPercent } = this.state;
     return (
       <div className={styles.container}>
+        <p>{downloadPercent}</p>
         <MainForm handleSubmit={this.getSearchList} download={this.download} list={list}/>
 
         <FindForm handleSubmit={this.filterIVs}/>

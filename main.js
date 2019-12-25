@@ -83,13 +83,16 @@ autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 });
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.' + info);
+  info.viewPo = 'Update available.';
+  sendStatusToWindow(info);
 });
 autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.' + info);
+  info.viewPo = 'Update not available.';
+  sendStatusToWindow(info);
 });
 autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
+  err.viewPo = 'Error in auto-updater.';
+  sendStatusToWindow(err);
 });
 autoUpdater.on('download-progress', (progressObj) => {
   let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
@@ -98,7 +101,8 @@ autoUpdater.on('download-progress', (progressObj) => {
   sendStatusToWindow(log_message);
 });
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded' + info);
+  info.viewPo = 'Update downloaded.';
+  sendStatusToWindow(info);
 });
 
 // 你可以在这个脚本中续写或者使用require引入独立的js文件.
