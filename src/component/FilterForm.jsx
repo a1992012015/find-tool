@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
-import { Button, Col, Form, Row, Select } from 'antd';
-
-import styles from '../App.module.scss';
+import { Col, Form, Row, Select } from 'antd';
 
 class FilterForm extends Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { form } = this.props;
-    form.validateFields((err, values) => {
-      if (!err) {
-        this.changeGender(values['gender']);
-      }
-    });
-  };
-
   changeGender = (value) => {
     const { handleSubmit } = this.props;
-
     handleSubmit(value);
   };
 
   render() {
     const { form, gender } = this.props;
     return (
-      <Form className='ant-advanced-search-form' onSubmit={this.handleSubmit}>
+      <Form className='ant-advanced-search-form'>
         <h3>修改检索条件</h3>
         <h6>此检索只能修改基础查询条件数据的不同条件下的结果</h6>
 
@@ -48,10 +35,6 @@ class FilterForm extends Component {
             </Form.Item>
           </Col>
         </Row>
-
-        <Col span={24} className={styles.submitBtn}>
-          <Button className={styles.formBtn} htmlType='submit'>开始检索</Button>
-        </Col>
       </Form>
     );
   }
