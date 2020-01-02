@@ -1,0 +1,151 @@
+$transition-time: 500ms;
+
+/**
+ * 右侧淡入，右侧淡出
+ */
+.forward-from-right-enter {
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.forward-from-right-enter-active {
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all $transition-time
+}
+
+.forward-from-right-exit {
+  z-index: 1;
+  opacity: 1;
+}
+
+.forward-from-right-exit-active {
+  z-index: 1;
+  opacity: .3;
+  transition: all $transition-time;
+}
+
+.back-to-right-enter {
+  z-index: 1;
+  opacity: .3;
+}
+
+.back-to-right-enter-active {
+  z-index: 1;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all $transition-time;
+}
+
+.back-to-right-exit {
+  z-index: 2;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.back-to-right-exit-active {
+  z-index: 2;
+  opacity: 0;
+  transform: translate(100%);
+  transition: all $transition-time;
+}
+
+/**
+ * 下方淡入，下方淡出
+ */
+.forward-from-bottom-enter {
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.forward-from-bottom-enter-active {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all $transition-time;
+}
+
+.forward-from-bottom-exit {
+  z-index: 1;
+  opacity: 1;
+}
+
+.forward-from-bottom-exit-active {
+  z-index: 1;
+  opacity: .3;
+  transition: all $transition-time;
+}
+
+.back-to-bottom-enter {
+  z-index: 1;
+  opacity: .3;
+}
+
+.back-to-bottom-enter-active {
+  z-index: 1;
+  opacity: 1;
+  transition: all $transition-time;
+}
+
+.back-to-bottom-exit {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-bottom-exit-active {
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all $transition-time;
+}
+
+/**
+ * 淡入，淡出
+ */
+.forward-from-opacity-enter {
+  z-index: 2;
+  opacity: 0;
+}
+
+.forward-from-opacity-enter-active {
+  z-index: 2;
+  opacity: 1;
+  transition: all $transition-time;
+}
+
+.forward-from-opacity-exit {
+  z-index: 1;
+  opacity: 1;
+}
+
+.forward-from-opacity-exit-active {
+  z-index: 1;
+  opacity: 0;
+  transition: all $transition-time;
+}
+
+.back-to-opacity-enter {
+  z-index: 1;
+  opacity: 0;
+}
+
+.back-to-opacity-enter-active {
+  z-index: 1;
+  opacity: 1;
+  transition: all $transition-time;
+}
+
+.back-to-opacity-exit {
+  z-index: 2;
+  opacity: 1;
+}
+
+.back-to-opacity-exit-active {
+  z-index: 2;
+  opacity: 0;
+  transition: all $transition-time;
+}

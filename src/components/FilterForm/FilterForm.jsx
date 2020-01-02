@@ -21,7 +21,7 @@ class FilterForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: gender,
               })(
-                <Select size="small" onSelect={this.changeGender}>
+                <Select size='small' onSelect={this.changeGender}>
                   <Select.Option value={0}>只有母</Select.Option>
                   <Select.Option value={1}>1(公):7(母)</Select.Option>
                   <Select.Option value={2}>1(公):3(母)</Select.Option>

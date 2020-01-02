@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Col, Form, InputNumber, Row } from 'antd';
 
-import styles from '../App.module.scss';
+import styles from './FindForm.module.scss';
 
 class FindForm extends Component {
   handleSubmit = (e) => {
@@ -27,7 +27,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[0]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -36,7 +36,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[1]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -45,7 +45,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[2]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -54,7 +54,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[3]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -63,7 +63,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[4]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -72,7 +72,7 @@ class FindForm extends Component {
               {form.getFieldDecorator('ivs[5]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
         </Row>

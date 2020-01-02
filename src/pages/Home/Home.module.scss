@@ -1,0 +1,14 @@
+.container {
+  word-break: break-all;
+}
+
+.status {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.statusBtn {
+  margin: 10px 0;
+}

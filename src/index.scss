@@ -1,0 +1,42 @@
+@import "styles/routerTransition";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+#root {
+  height: 100%;
+}
+
+.wrap-container {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.wrap-transition {
+  flex: 1;
+  display: flex;
+  align-self: stretch;
+  flex-direction: row;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.loading-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}

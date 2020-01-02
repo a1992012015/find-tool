@@ -14,7 +14,8 @@ let pyProc = null;
 const createPyProc = () => {
   const script = path.join(__dirname, 'pydist', 'api', 'api');
   pyProc = childProcess.execFile(script);
-  if (pyProc != null) {
+  if (pyProc) {
+    /* eslint-disable-next-line */
     console.log('child process success');
   }
 };
@@ -24,7 +25,7 @@ const createWindow = () => {
   if (process.env.ENVIRONMENT === 'development') {
     width = 1550;
   }
-//创建浏览器窗口,宽高自定义具体大小你开心就好
+  //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
     width: width,
     height: 600,
@@ -36,7 +37,7 @@ const createWindow = () => {
 
   // 加载应用-----  electron-quick-start中默认的加载入口
   if (process.env.ENVIRONMENT === 'development') {
-    mainWindow.loadURL('http://localhost:3000/');
+    mainWindow.loadURL('http://localhost:8080/');
     // 打开开发者工具，默认不打开
     mainWindow.webContents.openDevTools();
   } else {

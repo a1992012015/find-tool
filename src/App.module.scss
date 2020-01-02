@@ -1,33 +1,14 @@
-.individualItem {
-  border-bottom: 1px solid #d6d6d6;
-}
+@import "./styles/common";
 
-.numberWrap {
+.App {
+  min-height: 100%;
+  min-width: $min-view-width;
+  max-width: 100%;
   width: 100%;
-}
-
-.submitBtn {
-  text-align: center;
-}
-
-.container {
-  padding: 20px;
-}
-
-.tableWrap {
-  margin-top: 20px;
-}
-
-.formBtn {
-  margin: 0 5px 10px;
-}
-
-.pay {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+}
 
-  img {
-    width: 20%;
-    height: auto;
-  }
+.AppMenu {
+  width: 100%;
 }

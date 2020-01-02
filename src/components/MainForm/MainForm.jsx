@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Col, Form, Input, InputNumber, Row, Select } from 'antd';
 
-import styles from '../App.module.scss';
+import styles from './MainForm.module.scss';
 
 class MainForm extends Component {
   handleSubmit = (e) => {
@@ -26,7 +26,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('pid', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: process.env.NODE_ENV === 'development' ? '0x8F18CFBE' : '0x',
-              })(<Input size="small"/>)}
+              })(<Input size='small'/>)}
             </Form.Item>
           </Col>
 
@@ -35,7 +35,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('ec', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: process.env.NODE_ENV === 'development' ? '0xAEB98D74' : '0x',
-              })(<Input size="small"/>)}
+              })(<Input size='small'/>)}
             </Form.Item>
           </Col>
 
@@ -45,7 +45,7 @@ class MainForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 1,
               })(
-                <Select size="small">
+                <Select size='small'>
                   <Select.Option value={1}>是</Select.Option>
                   <Select.Option value={0}>否</Select.Option>
                 </Select>,
@@ -58,7 +58,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('minResults', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 0,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0}/>)}
             </Form.Item>
           </Col>
 
@@ -67,7 +67,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('maxResults', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 1500,
-              })(<InputNumber size="small" className={styles.numberWrap} min={1}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={1}/>)}
             </Form.Item>
           </Col>
 
@@ -77,7 +77,7 @@ class MainForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 4,
               })(
-                <Select size="small">
+                <Select size='small'>
                   <Select.Option value={1}>保底1V</Select.Option>
                   <Select.Option value={2}>保底2V（三星洞）</Select.Option>
                   <Select.Option value={3}>保底3V（四星洞或活动超级巨三星洞）</Select.Option>
@@ -94,7 +94,7 @@ class MainForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 1,
               })(
-                <Select size="small">
+                <Select size='small'>
                   <Select.Option value={1}>是</Select.Option>
                   <Select.Option value={0}>否</Select.Option>
                 </Select>,
@@ -108,7 +108,7 @@ class MainForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 1,
               })(
-                <Select size="small">
+                <Select size='small'>
                   <Select.Option value={1}>是</Select.Option>
                   <Select.Option value={0}>否</Select.Option>
                 </Select>,
@@ -122,7 +122,7 @@ class MainForm extends Component {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: process.env.NODE_ENV === 'development' ? 0 : 1,
               })(
-                <Select size="small">
+                <Select size='small'>
                   <Select.Option value={1}>是</Select.Option>
                   <Select.Option value={0}>否</Select.Option>
                 </Select>,
@@ -135,7 +135,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[0]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: process.env.NODE_ENV === 'development' ? 16 : 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -144,7 +144,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[1]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -153,7 +153,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[2]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -162,7 +162,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[3]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -171,7 +171,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[4]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 
@@ -180,7 +180,7 @@ class MainForm extends Component {
               {form.getFieldDecorator('IVs[5]', {
                 rules: [{ required: true, message: '必填' }],
                 initialValue: process.env.NODE_ENV === 'development' ? 6 : 31,
-              })(<InputNumber size="small" className={styles.numberWrap} min={0} max={31}/>)}
+              })(<InputNumber size='small' className={styles.numberWrap} min={0} max={31}/>)}
             </Form.Item>
           </Col>
 

@@ -1,0 +1,43 @@
+.content {
+  padding: 10px;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.colIndividualValues {
+  position: relative;
+}
+
+.colCenter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(30%);
+}
+
+.resultText {
+  margin: 0;
+}
+
+.textView {
+  text-align: center;
+
+  button {
+    margin: 0 5px
+  }
+}
+
+.resultBox {
+  height: 350px;
+}
+
+.textError {
+  margin-top: 10px;
+}
+
+.ok {
+  font-weight: 700;
+  color: #88DD66;
+}

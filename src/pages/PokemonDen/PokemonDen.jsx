@@ -4,15 +4,15 @@ import axios from 'axios';
 import isElectron from 'is-electron';
 import { Table } from 'antd';
 
-import { natures } from './configs/naturesConfig';
-import { getUuid } from './services/commonService';
-import MainForm from './component/MainForm';
-import FindForm from './component/FindForm';
+import { naturesConfig } from '../../configs/naturesConfig';
+import { getUuid } from '../../services/commonService';
+import MainForm from '../../components/MainForm/MainForm';
+import FindForm from '../../components/FindForm/FindForm';
 
-import styles from './App.module.scss';
-import FilterForm from './component/FilterForm';
+import styles from './PokemonDen.module.scss';
+import FilterForm from '../../components/FilterForm/FilterForm';
 
-class App extends Component {
+class PokemonDen extends Component {
   columns = [
     {
       title: '帧位',
@@ -45,7 +45,7 @@ class App extends Component {
     {
       title: '性格',
       dataIndex: 'nature',
-      render: (nature) => natures[nature].name,
+      render: (nature) => naturesConfig.find((v) => v.get('value') === nature).get('name'),
     },
     {
       title: '个体',
@@ -70,20 +70,26 @@ class App extends Component {
   componentDidMount() {
     if (isElectron()) {
       window.ipcRenderer.on('message', (event, text) => {
+        /* eslint-disable-next-line */
         console.log('event', event);
+        /* eslint-disable-next-line */
         console.log('arguments', arguments);
-        console.log('arguments', text);
+        /* eslint-disable-next-line */
+        console.log('message', text);
         // this.tips = text;
       });
       //注意：“downloadProgress”事件可能存在无法触发的问题，只需要限制一下下载网速就好了
       window.ipcRenderer.on('downloadProgress', (event, progressObj) => {
+        /* eslint-disable-next-line */
         console.log('progressObj', progressObj);
+        /* eslint-disable-next-line */
         console.log('event', event);
         this.setState({
           downloadPercent: progressObj.percent || 0,
         });
       });
       window.ipcRenderer.on('isUpdateNow', () => {
+        /* eslint-disable-next-line */
         console.log('isUpdateNow');
         window.ipcRenderer.send('isUpdateNow');
       });
@@ -99,7 +105,6 @@ class App extends Component {
   getFilterList = (body, minResults) => {
     this.setState({ loading: true });
     axios.get(`http://localhost:8888/?${body}`).then((response) => {
-      console.log('response', response.data);
       let list = this.getMinList(response.data.filter, minResults);
       list = this.changeGender(list, this.state.gender);
       this.list = list;
@@ -142,7 +147,8 @@ class App extends Component {
     list.forEach((item) => {
       const { index, seed, ec, pid, shinyType, ability, gender, nature, IVs } = item;
       text += `${index}  ${seed}  ${ec}  ${pid}  ${shinyType}  ` +
-        `${ability}  ${gender}  ${natures[nature].name}  ${JSON.stringify(IVs)}
+        `${ability}  ${gender}  ${naturesConfig.find((v) => v.value === nature)
+          .get('name')}  ${JSON.stringify(IVs)}
 
 `;
     });
@@ -202,33 +208,33 @@ class App extends Component {
     const num = 254;
     let genderNum = 0;
     switch (proportion) {
-      case 0:
-        return 0;
-      case 1:
-        genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
-        genderNum = Math.ceil(Number(genderNum));
-        return genderNum <= 7 ? 0 : 1;
-      case 2:
-        genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
-        genderNum = Math.ceil(Number(genderNum));
-        return genderNum <= 3 ? 0 : 1;
-      case 4:
-        genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
-        genderNum = Math.ceil(Number(genderNum));
-        return genderNum <= 1 ? 0 : 1;
-      case 5:
-        genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
-        genderNum = Math.ceil(Number(genderNum));
-        return genderNum <= 1 ? 0 : 1;
-      case 6:
-        return 1;
-      case 7:
-        return 2;
-      case 3:
-      default:
-        genderNum = new BigNumber(gender).div(new BigNumber(num).div(2)).toFormat();
-        genderNum = Math.ceil(Number(genderNum));
-        return genderNum <= 1 ? 0 : 1;
+    case 0:
+      return 0;
+    case 1:
+      genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
+      genderNum = Math.ceil(Number(genderNum));
+      return genderNum <= 7 ? 0 : 1;
+    case 2:
+      genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
+      genderNum = Math.ceil(Number(genderNum));
+      return genderNum <= 3 ? 0 : 1;
+    case 4:
+      genderNum = new BigNumber(gender).div(new BigNumber(num).div(4)).toFormat();
+      genderNum = Math.ceil(Number(genderNum));
+      return genderNum <= 1 ? 0 : 1;
+    case 5:
+      genderNum = new BigNumber(gender).div(new BigNumber(num).div(8)).toFormat();
+      genderNum = Math.ceil(Number(genderNum));
+      return genderNum <= 1 ? 0 : 1;
+    case 6:
+      return 1;
+    case 7:
+      return 2;
+    case 3:
+    default:
+      genderNum = new BigNumber(gender).div(new BigNumber(num).div(2)).toFormat();
+      genderNum = Math.ceil(Number(genderNum));
+      return genderNum <= 1 ? 0 : 1;
     }
   };
 
@@ -248,8 +254,8 @@ class App extends Component {
         <p>如果用的顺手，打赏一下吧，目前还在更新中，有问题可以给我提一下</p>
 
         <div className={styles.pay}>
-          <img src={require('./assets/images/alipay.jpeg')} alt="alipay"/>
-          <img src={require('./assets/images/wepay.png')} alt="wepay"/>
+          <img src={require('../../assets/images/alipay.jpeg')} alt='alipay'/>
+          <img src={require('../../assets/images/wepay.png')} alt='wepay'/>
         </div>
       </div>
     );
@@ -274,4 +280,4 @@ class App extends Component {
   };
 }
 
-export default App;
+export default PokemonDen;
