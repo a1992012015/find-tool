@@ -118,7 +118,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.5.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react-app-rewired": "^2.1.5",
     "react-hot-loader": "^4.12.18",
